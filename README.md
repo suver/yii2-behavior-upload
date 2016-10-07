@@ -8,6 +8,8 @@ Installation
 Install migrations
 
 ```bash
+php composer.phar require --prefer-dist suver/yii2-behavior-upload "*"
+
 yii migrate --migrationPath=@vendor/suver/yii2-behavior-upload/migrations
 ```
 

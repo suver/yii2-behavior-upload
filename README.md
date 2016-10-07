@@ -8,7 +8,7 @@ Installation
 Install migrations
 
 ```bash
-php composer.phar require --prefer-dist suver/yii2-behavior-upload "*"
+php composer.phar require suver/yii2-behavior-upload
 
 yii migrate --migrationPath=@vendor/suver/yii2-behavior-upload/migrations
 ```
@@ -16,7 +16,18 @@ yii migrate --migrationPath=@vendor/suver/yii2-behavior-upload/migrations
 How USE
 -------
 
-0. Create @storage alias for you structur
+0. Create @storage alias for you structur and configure module
+```php
+$config = [
+    'modules' => [
+        'uploads' => [ // You module name must be an `uploads`
+            'class' => 'suver\behavior\upload\Module',
+            'storageDomain' => '//storage.example.com'
+        ],
+    ],
+];
+```
+
 
 1. COnfigure you nginx server like this
 ```

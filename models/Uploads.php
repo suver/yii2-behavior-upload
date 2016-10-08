@@ -42,7 +42,7 @@ class Uploads extends \yii\db\ActiveRecord implements UploadsInterface
      */
     public static function tableName()
     {
-        return '{{%uploads}}';
+        return '{{%suver-uploads}}';
     }
 
     public function behaviors()
@@ -107,13 +107,6 @@ class Uploads extends \yii\db\ActiveRecord implements UploadsInterface
 
     public function getExtension() {
         return $this->extension;
-    }
-
-    public function beforeDelete()
-    {
-        return parent::beforeDelete();
-
-        unlink();
     }
 
 }

@@ -6,7 +6,7 @@ class m161005_124320_uploads extends Migration
 {
     public function up()
     {
-        $this->db->createCommand("CREATE TABLE `uploads` ( 
+        $this->db->createCommand("CREATE TABLE `suver-uploads` ( 
             `id` BIGINT(20) NOT NULL AUTO_INCREMENT , 
             `attribute` VARCHAR(255) NOT NULL ,
             `model` VARCHAR(255) NOT NULL , 

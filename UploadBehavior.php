@@ -42,6 +42,7 @@ class UploadBehavior extends Behavior
     public $attribute;
     public $thumbnail;
     public $_values;
+
     /**
      * @var array the scenarios in which the behavior will be triggered
      */
@@ -50,7 +51,13 @@ class UploadBehavior extends Behavior
     /**
      * @var bool Getting file instance by name
      */
-    public $instanceByName = FALSE;
+    public $instanceByName = false;
+
+    /**
+     * @var bool загрузка множества файлов
+     */
+    public $multiUpload = false;
+
     /**
      * @var UploadedFile the uploaded file instance.
      */
@@ -175,14 +182,14 @@ class UploadBehavior extends Behavior
                 $this->_files[] = $file;
             }
             else {
-                if ($this->instanceByName === TRUE) {
+                if ($this->instanceByName === true) {
                     $this->_files = UploadedFile::getInstancesByName($this->attribute);
                 }
                 else {
                     $this->_files = UploadedFile::getInstances($model, $this->attribute);
                 }
 
-                if ($this->multiUpload == FALSE) {
+                if ($this->multiUpload == false) {
                     $model->{$this->attribute} = reset($this->_files);
                 }
                 else {
@@ -242,6 +249,12 @@ class UploadBehavior extends Behavior
                     if (!$model->getIsNewRecord()) {
                         //$previousFile = $this->linkedFilesModel($this->attribute);
                     }*/
+                    if (!$this->owner->getIsNewRecord() && $this->multiUpload == false) {
+                        $previousFiles = $this->linkedFiles($this->attribute);
+                        foreach ($previousFiles as $file) {
+                            $file->delete();
+                        }
+                    }
 
                     $savedFile = $this->save($_file->tempName, $_file->name);
                     $this->afterUpload($savedFile);
@@ -265,6 +278,11 @@ class UploadBehavior extends Behavior
 
     }
 
+    /**
+     * Присутсвует ли файл по http
+     * @param $file
+     * @return bool
+     */
     public function httpFileExists($file) {
         $ch = curl_init($file);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'HEAD');
@@ -286,10 +304,25 @@ class UploadBehavior extends Behavior
         return $http_code == 200 ? true : false;
     }
 
+    /**
+     * Добавляет http файл в очередь на загрузку
+     *
+     * @param $attribute
+     * @param $file
+     * @param bool $originalFileName
+     */
     public function addHttpFile($attribute, $file, $originalFileName=false) {
         $this->_httpFiles[$attribute][] = ['file' => $file, 'originalName' => $originalFileName];
     }
 
+    /**
+     * Загружает файл по http
+     *
+     * @param $attribute
+     * @param $file
+     * @param bool $originalFileName
+     * @return array|bool|null|Uploads
+     */
     protected function linkHttpFile($attribute, $file, $originalFileName=false) {
         if($this->httpFileExists($file)) {
             $ch = curl_init($file);
@@ -313,6 +346,12 @@ class UploadBehavior extends Behavior
         return false;
     }
 
+    /**
+     * Добавить путь к файлу для его дальнейшей загрузки
+     * @param $attribute
+     * @param $file
+     * @param bool $originalFileName
+     */
     public function addFile($attribute, $file, $originalFileName=false) {
         $this->_pathFiles[$attribute][] = ['file' => $file, 'originalName' => $originalFileName];
     }
@@ -410,7 +449,6 @@ class UploadBehavior extends Behavior
         return $model;
     }
 
-
     /**
      * Добавляем тригер после загрузки
      * @param $image
@@ -426,7 +464,12 @@ class UploadBehavior extends Behavior
     public function beforeDelete()
     {
         if ($this->attribute) {
-
+            if (!$this->owner->getIsNewRecord() && $this->multiUpload == false) {
+                $previousFiles = $this->linkedFiles($this->attribute);
+                foreach ($previousFiles as $file) {
+                    $file->delete();
+                }
+            }
         }
     }
 

@@ -109,6 +109,11 @@ class Uploads extends \yii\db\ActiveRecord implements UploadsInterface
         return $this->extension;
     }
 
+    public function beforeDelete()
+    {
+        return parent::beforeDelete();
 
+        unlink();
+    }
 
 }

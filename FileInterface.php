@@ -20,6 +20,12 @@ interface FileInterface {
     public function byDefault($file=false);
 
     /**
+     * Вернет директорию файла
+     * @return mixed
+     */
+    public function getDirectory();
+
+    /**
      * Вернет тип файла
      * @return mixed
      */
@@ -100,4 +106,5 @@ interface FileInterface {
      * @return string
      */
     public function getDomainPath();
+
 }

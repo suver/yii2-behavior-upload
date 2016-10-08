@@ -146,6 +146,13 @@ class IncorrectFile implements FileInterface
     }
 
     /**
+     * @return null Удаляет директорию
+     */
+    public function getDirectory() {
+        return null;
+    }
+
+    /**
      * Вернет путь из хранилища
      * @param bool $size
      * @return string

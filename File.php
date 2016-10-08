@@ -124,6 +124,7 @@ class File implements FileInterface
     }
 
     public function delete() {
+        $this->fileDelete();
         return $this->model->delete();
     }
 
@@ -133,11 +134,23 @@ class File implements FileInterface
      * @param UploadsInterface $model
      * @return string
      */
-    public function getPath()
+    public function getDirectory()
     {
         $path = substr($this->getName(), 0, 2);
         $path = $path . '/' . substr($this->getName(), 2, 2);
         $path = $path . '/' . $this->getName();
+        return $path;
+    }
+
+    /**
+     * Вернет относительный путь к файлу текущего представления
+     *
+     * @param UploadsInterface $model
+     * @return string
+     */
+    public function getPath()
+    {
+        $path = $this->getDirectory();
         $image = $path . '/' . $this->getName() . '.' . $this->getExtension();
         return $image;
     }
@@ -170,4 +183,32 @@ class File implements FileInterface
         return $this->defaultFilePath;
     }
 
+    /**
+     * Удаляет файл
+     */
+    protected function fileDelete() {
+        $directory = $this->getDirectory();
+        $fileFullPath = Yii::getAlias('@storage/' . $directory);
+        if(file_exists($fileFullPath)) {
+            $files = scandir($fileFullPath);
+            foreach($files as $file) {
+                if(!in_array($file, ['.','..'])) {
+                    $fileFullPathFile = Yii::getAlias('@storage/' . $directory . '/' . $file);
+                    @unlink($fileFullPathFile);
+                }
+            }
+
+            @rmdir($fileFullPath);
+
+            $files = scandir(dirname($fileFullPath));
+            if(count($files) <= 2) {
+                @rmdir(dirname($fileFullPath));
+            }
+
+            $files = scandir(dirname(dirname($fileFullPath)));
+            if(count($files) <= 2) {
+                @rmdir(dirname(dirname($fileFullPath)));
+            }
+        }
+    }
 }

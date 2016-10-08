@@ -8,26 +8,13 @@ Installation
 Install migrations
 
 ```bash
-php composer.phar require suver/yii2-behavior-upload
-
 yii migrate --migrationPath=@vendor/suver/yii2-behavior-upload/migrations
 ```
 
 How USE
 -------
 
-0. Create @storage alias for you structur and configure module
-```php
-$config = [
-    'modules' => [
-        'uploads' => [ // You module name must be an `uploads`
-            'class' => 'suver\behavior\upload\Module',
-            'storageDomain' => '//storage.example.com'
-        ],
-    ],
-];
-```
-
+0. Create @storage alias for you structur
 
 1. COnfigure you nginx server like this
 ```
@@ -126,6 +113,9 @@ OPTIONS
 * type - type of file. Exmaple: image. All type see UploadBehavior::$types
 * fileModel - You model for file modified. You class must be instanceof FileInterface like ImageFile class
 * messageFileNotFound - if file not found you see this message
+* multiUpload - if TRUE you can a lot uploaded file, else you can only one file
+
+WARNING: If you wont to lot upload you must add  `multiUpload=true` to your behavior options
 
 
 USE after upload
@@ -203,6 +193,9 @@ $model->linkedFile('photo')->getSize();
 
 $model->linkedFile('photo')->getOriginalName();
 // => avatar.jpg
+
+$model->linkedFile('photo')->getDirectory()
+// => /er/rt/errtsjdhfjsdhsdfsdfsd
 
 $model->linkedFile('photo')->getParams();
 // => [width => 1000, height => 1500]

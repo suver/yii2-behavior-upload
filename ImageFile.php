@@ -85,29 +85,6 @@ class ImageFile extends File implements FileInterface
         return $this;
     }
 
-    /**
-     * Вернет имя файла
-     * @return mixed
-     */
-    public function getName() {
-        return $this->model->name;
-    }
-
-    /**
-     * Вернем разширение файла
-     * @return mixed
-     */
-    public function getExtension() {
-        return $this->model->extension;
-    }
-
-    /**
-     * Удаление файла и модели
-     * @return mixed
-     */
-    public function delete() {
-        return $this->model->delete();
-    }
 
     /**
      * Вернет относительный путь к диреткории с файлами текущего представления
@@ -161,9 +138,7 @@ class ImageFile extends File implements FileInterface
         }
         $prefix = isset($params['prefix']) ? $params['prefix'] . '_' : '';
 
-        $path = substr($this->getName(), 0, 2);
-        $path = $path . '/' . substr($this->getName(), 2, 2);
-        $path = $path . '/' . $this->getName();
+        $path = $this->getDirectory();
 
         if(!$size) {
             $image = $path . '/' . $this->getName() . '.' . $this->getExtension();

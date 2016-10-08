@@ -108,9 +108,9 @@ OPTIONS
 * * prefix - add prefix for file name. When you modifien your thumbnail options you sey thenks for me fo this options ))
 * * option - imagine option for save file
 * * preGenerationOff - if this option is FALSE, this thumbnail don`t generated toafter uploaded file
-* animate - if animate == false you gif animation is off
-* instanceByName - if true your UploadedFile instance changed on UploadedFile::getInstancesByName
-* type - type of file. Exmaple: image. All type see UploadBehavior::$types
+* animate - if `animate == false` you gif animation is off
+* instanceByName - if true your UploadedFile instance changed on `UploadedFile::getInstancesByName`
+* type - type of file. Exmaple: image. All type see `UploadBehavior::$types`
 * fileModel - You model for file modified. You class must be instanceof FileInterface like ImageFile class
 * messageFileNotFound - if file not found you see this message
 * multiUpload - if TRUE you can a lot uploaded file, else you can only one file
@@ -125,7 +125,7 @@ Like Example
 
 ```php
 
-<img src="<?php echo $model->linkedFile('photo')->thumbnail('admin_preview')->byDefault('/images/gogol.jpg') ?>" alt="<?php echo Html::encode($model->full_name) ?>" class="img-circle" width="200" height="200">
+<img src="<?php echo $model->linkedFile('photo')->thumbnail('admin_preview')->byDefault('/images/gogol.jpg') ?>">
 ```
 
 Other method

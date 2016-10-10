@@ -5,19 +5,6 @@ File Upload Behavior
 Installation
 ------------
 
-Either run
-
-```
-php composer.phar require suver/yii2-behavior-upload
-```
-
-or add
-
-```
-"suver/yii2-behavior-upload": "*"
-```
-
-
 Install migrations
 
 ```bash

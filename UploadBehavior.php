@@ -477,7 +477,7 @@ class UploadBehavior extends Behavior
      * Вернет модель файла
      * @param $attribute
      * @param bool $size
-     * @return ImageFile|File|IncorrectFile
+     * @return array|Uploads|null
      */
     protected function _linkedFile($model) {
         if ($model) {
@@ -500,7 +500,7 @@ class UploadBehavior extends Behavior
      * Вернет модель файла
      * @param $attribute
      * @param bool $size
-     * @return ImageFile|File|IncorrectFile
+     * @return array|Uploads|null
      */
     public function linkedFile($attribute) {
         $model = Uploads::find()
@@ -516,7 +516,7 @@ class UploadBehavior extends Behavior
      * Верент модели всех прикрепленных файлов
      * @param $attribute
      * @param bool $size
-     * @return ImageFile[]|File[]|IncorrectFile[]
+     * @return array|Uploads|null
      */
     public function linkedFiles($attribute) {
         $models = Uploads::find()

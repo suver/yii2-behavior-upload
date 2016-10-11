@@ -5,6 +5,25 @@ File Upload Behavior
 Installation
 ------------
 
+
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+php composer.phar require suver/yii2-behavior-upload
+```
+
+or add
+
+```
+"suver/yii2-behavior-upload": "*"
+```
+
+to the require section of your `composer.json` file.
+
+
+
 Install migrations
 
 ```bash
@@ -35,8 +54,31 @@ server {
 
 ```
 
+or add simlink as example
 
-2. You must add behavior like this
+```bash
+ln -s /var/www/com/example/storage /var/www/com/example/frontend/web/storages
+ln -s /var/www/com/example/storage /var/www/com/example/backend/web/storages
+
+```
+
+or configure your another web server
+
+
+2. Configure your config file as example
+
+```
+    'modules' => [
+        'uploads' => [
+            'class' => 'suver\behavior\upload\Module',
+            'storageDomain' => '//storage.example.com'
+            // or 
+            //'storageDomain' => '//example.com/storages'
+        ],
+    ],
+```
+
+3. You must add behavior like this
  
 
 ```php
@@ -63,7 +105,7 @@ public function behaviors()
 
 ```
 
-3. You must add rule for file like this
+4. You must add rule for file like this
  
 
 ```php
@@ -80,7 +122,7 @@ public function rules()
 
 ```
 
-3. Upgrade your upload form like this
+5. Upgrade your upload form like this
 
 php
 ```

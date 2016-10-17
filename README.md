@@ -5,24 +5,11 @@ File Upload Behavior
 Installation
 ------------
 
+```bash
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
-
-Either run
-
-```
-php composer.phar require suver/yii2-behavior-upload
-```
-
-or add
+php composer.phar require --prefer-dist yiisoft/yii2-imagine
 
 ```
-"suver/yii2-behavior-upload": "*"
-```
-
-to the require section of your `composer.json` file.
-
-
 
 Install migrations
 
@@ -33,9 +20,10 @@ yii migrate --migrationPath=@vendor/suver/yii2-behavior-upload/migrations
 How USE
 -------
 
-0. Create @storage alias for you structur
+Create @storage alias for you structur
 
-1. COnfigure you nginx server like this
+Configure you nginx server like this
+
 ```
 server {
 	charset utf-8;
@@ -54,31 +42,8 @@ server {
 
 ```
 
-or add simlink as example
 
-```bash
-ln -s /var/www/com/example/storage /var/www/com/example/frontend/web/storages
-ln -s /var/www/com/example/storage /var/www/com/example/backend/web/storages
-
-```
-
-or configure your another web server
-
-
-2. Configure your config file as example
-
-```
-    'modules' => [
-        'uploads' => [
-            'class' => 'suver\behavior\upload\Module',
-            'storageDomain' => '//storage.example.com'
-            // or 
-            //'storageDomain' => '//example.com/storages'
-        ],
-    ],
-```
-
-3. You must add behavior like this
+You must add behavior like this
  
 
 ```php
@@ -105,7 +70,7 @@ public function behaviors()
 
 ```
 
-4. You must add rule for file like this
+You must add rule for file like this
  
 
 ```php
@@ -122,7 +87,7 @@ public function rules()
 
 ```
 
-5. Upgrade your upload form like this
+Upgrade your upload form like this
 
 php
 ```

@@ -192,8 +192,8 @@ class ImageFile extends File implements FileInterface
         else {
             $image = $this->_getPath($size);
             $imageFullPath = Yii::getAlias('@storage/' . $image);
-            $imageSource = Yii::getAlias('@storage/' . $this->_getPath());
-            if(!file_exists($imageFullPath) && file_exists($imageSource)) {
+            if(!file_exists($imageFullPath)) {
+                $imageSource = Yii::getAlias('@storage/' . $this->_getPath());
                 $this->_thumbnailProcessor($imageSource, $imageFullPath, $thumbnail_width, $thumbnail_height, $params);
             }
         }
@@ -203,6 +203,9 @@ class ImageFile extends File implements FileInterface
     protected function _thumbnailProcessor($source_path, $thumbnail_path, $thumbnail_width, $thumbnail_height, $params = []) {
         $imagine = Image::getImagine();
 
+        if(!file_exists($source_path)) {
+            return false;
+        }
         $image = $imagine->open($source_path);
         $currentSize  = $image->getSize();
 

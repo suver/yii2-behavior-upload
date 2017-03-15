@@ -7,7 +7,7 @@ Installation
 
 ```bash
 
-php composer.phar require --prefer-dist yiisoft/yii2-imagine
+php composer.phar require --prefer-dist suver/yii2-behavior-upload
 
 ```
 

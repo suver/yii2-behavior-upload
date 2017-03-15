@@ -129,7 +129,7 @@ class UploadBehavior extends Behavior
         }
     }
 
-    public function canSetProperty($name) {
+    public function canSetProperty($name, $checkVars=true) {
         return ($name == $this->attribute) ? true : false;
     }
 

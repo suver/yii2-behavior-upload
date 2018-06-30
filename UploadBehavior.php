@@ -365,7 +365,8 @@ class UploadBehavior extends Behavior
     protected function save($file, $originalName)
     {
         $mime = FileHelper::getMimeType($file);
-        $extension = end(FileHelper::getExtensionsByMimeType($mime));
+        $extensions = FileHelper::getExtensionsByMimeType($mime);
+        $extension = end($extensions);
 
         $type = false;
         if ($this->type) {
@@ -375,7 +376,6 @@ class UploadBehavior extends Behavior
         if (!$type) {
             $type = isset($this->types[$mime]) ? $this->types[$mime] : self::TYPE_UNKNOWN;
         }
-
         $hash = md5(file_get_contents($file));
         $model = Uploads::find()
             ->andWhere(['hash'=>$hash])

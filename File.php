@@ -180,7 +180,7 @@ class File implements FileInterface
         if(file_exists($fileFullPath)) {
             return Yii::$app->getModule('uploads')->storageDomain . '/' . $file;
         }
-        return $this->defaultFilePath;
+        return Yii::$app->getModule('uploads')->defaultDomain . '/' . $this->defaultFilePath;
     }
 
     /**

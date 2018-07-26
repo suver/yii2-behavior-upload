@@ -121,7 +121,7 @@ class ImageFile extends File implements FileInterface
         if(file_exists($imageFullPath)) {
             return Yii::$app->getModule('uploads')->storageDomain . '/' . $image;
         }
-        return $this->defaultFilePath;
+        return Yii::$app->getModule('uploads')->defaultDomain . '/' . $this->defaultFilePath;
     }
 
     /**

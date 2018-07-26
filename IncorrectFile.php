@@ -158,7 +158,7 @@ class IncorrectFile implements FileInterface
      * @return string
      */
     public function getDomainPath($size=false) {
-        return $this->defaultFilePath;
+        return Yii::$app->getModule('uploads')->defaultDomain . $this->defaultFilePath;
     }
 
     public function __call($name, $arguments)

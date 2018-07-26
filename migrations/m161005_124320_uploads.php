@@ -1,4 +1,5 @@
 <?php
+namespace suver\behavior\upload\migrations;
 
 use yii\db\Migration;
 

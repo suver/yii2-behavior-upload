@@ -12,6 +12,7 @@ class Module extends \yii\base\Module
      */
     public $controllerNamespace = 'suver\behavior\upload\controller';
     public $storageDomain = '';
+    public $defaultDomain = '';
 
     public $menu = [];
 
